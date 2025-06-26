@@ -6,7 +6,7 @@ from zoo_auction_system import GameState, Player
 from typing import List, Dict, Optional, Any, Tuple, Callable
 
 app = Flask(__name__, template_folder='templates')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-very-secret-key-change-in-production')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'very-secret-key')
 
 # Configure SocketIO for production
 socketio = SocketIO(app, 
@@ -36,7 +36,9 @@ def handle_login():
     username = request.form.get('username')
     password = request.form.get('password') # For admin
 
-    if username == 'admin' and password == 'password': # Simple admin auth
+    admin_password = os.environ.get('ADMIN_PASSWORD', 'password')
+
+    if username == 'admin' and password == admin_password: # Simple admin auth
         session['user_type'] = 'admin'
         session['username'] = 'admin'
         return redirect(url_for('admin_dashboard'))
