@@ -11,9 +11,9 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'very-secret-key')
 # Configure SocketIO for production
 socketio = SocketIO(app, 
                    cors_allowed_origins="*",
-                   async_mode='eventlet',
-                   logger=True, 
-                   engineio_logger=True)
+                   # async_mode='eventlet',
+                   logger=False, 
+                   engineio_logger=False)
 
 # Global game state
 game_state = GameState(None)
